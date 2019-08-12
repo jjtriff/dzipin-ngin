@@ -1,0 +1,53 @@
+State of the art:
+  ✔ Locate an open source HTTP/HTTPS proxy to fork @done(19-08-11 16:13)
+  Result: [mitmproxy](https://github.com/mitmproxy/mitmproxy/)
+  Is opens source and scriptable with python, a good chance to learn. And works like man-in-the-middle for HTTPS requests
+  ✔ Find out if SSH can help on the compressing traffic matter @done(19-08-11 19:08)
+  It can: using -C option when calling, or setting a `Compression yes` on the config file for a particular server or global
+  The compression level is not settable for SSHv2, which is the default.
+  ✔ Get a tool to make a accurate measure as of how many bytes are we saving when using the ssh tunnel. @done(19-08-11 23:26)
+  wireshark. 
+  ✔ Get and endpoint from where to generate/download files @done(19-08-11 22:25)
+  Created a github repository and getting the files thru https://raw.githubusercontent.com/jjtriff/files/master/
+  ✔ Make a measure using the proxy @done(19-08-11 23:25)
+  Downloaded 5mb got 5692334 bytes in 39s
+  Downloaded 100 got 118580   bytes in 4s
+  Downloaded 200k got 229636 bytes  in 5s
+  ✔ and make another one without the proxy @done(19-08-11 23:25)
+  Downloaded 5mb got 5644623 bytes in 29s
+  Downloaded 100k file and got a total  120392 bytes in 10s, probably 'cause it was the first request
+  Downloaded 200k file and got a total 231303 bytes in 3s
+  ✔ evaluate the gain in each case proxy/non-proxy @done(19-08-11 23:45)
+  Result: apparently the overhead from ssh tunnel takes its tall on the long run, and bigger files tend to generate larger data traffics.
+    ✔ 5m 5692334/5644623 = 1.008452468836271 -- size increment of about 0.8% @done(19-08-11 23:39)
+    ✔ 100k 118580/120392 = 0.9849491660575454 -- size decrement of 1.5% @done(19-08-11 23:43)
+    ✔ 200k 229636/231303 = 0.9927930031171234 -- size dec of  0.7% @done(19-08-11 23:44)
+
+  ✔ do one last real-live experiment with the web browser disabiling cache and loading https://dev.to and https://thinkbroadband.com @done(19-08-12 00:12)
+  No proxy sigue ganando con una diferencia de un 38% del trafico
+    ✔ proxy 348372  +  108307  +  84184  + 28028 = 568891 @done(19-08-12 00:12)
+    ✔ non-proxy 124181 + 153455  + 119950 + 12422 = 410008 @done(19-08-12 00:12)
+
+Automate the process of testing network usage:
+  ✔ very important to add the wireshark group and permissions to the user to be able to run scripts without sudo privileges @done(19-08-12 15:26)
+  ```
+    #steps
+    sudo -i
+    groupadd -s wireshark
+    usermod -a -G wireshark $USER
+    chgrp wireshark /usr/bin/dumpcap
+    chmod o-rx /usr/bin/dumpcap 
+    chown root /usr/bin/dumpcap
+    chmod u+s /usr/bin/dumpcap
+    shutdown -r now
+  ```
+  ✔ find out how to use wireshark from bash to measure amount of bytes transfered during a certain time @started(19-08-12 14:33) @done(19-08-12 15:40) @lasted(1h7m16s)
+  `tshark -i enp0s20f0u1 -p -q -z io,stat,0,BYTES > stats`
+  parseando sobre stat se puede encontrar el resultado usando esta expresion regular `\|\W+(\d+)\W\|`
+  `pcregrep -o1 '\|\W+(\d+)\W\|' stats`, esto dara el output de la cantidad de bytes q se transmitieron
+  
+  ☐ include script in a testing folder 
+
+Another tasks:
+  ☐ download mitmproxy
+  ☐ configure it and test it using curl
