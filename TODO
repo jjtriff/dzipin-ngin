@@ -45,9 +45,12 @@ Automate the process of testing network usage:
   `tshark -i enp0s20f0u1 -p -q -z io,stat,0,BYTES > stats`
   parseando sobre stat se puede encontrar el resultado usando esta expresion regular `\|\W+(\d+)\W\|`
   `pcregrep -o1 '\|\W+(\d+)\W\|' stats`, esto dara el output de la cantidad de bytes q se transmitieron
-  
-  ☐ include script in a testing folder 
+
+  ✔ include script in a testing folder @done(19-08-13 16:17)
 
 Another tasks:
   ☐ download mitmproxy
   ☐ configure it and test it using curl
+
+
+  ☐ put all of this inside the README.md
