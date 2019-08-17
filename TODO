@@ -47,6 +47,7 @@ Automate the process of testing network usage:
   `pcregrep -o1 '\|\W+(\d+)\W\|' stats`, esto dara el output de la cantidad de bytes q se transmitieron
 
   ✔ include script in a testing folder @done(19-08-13 16:17)
+  ✔ make a testing script that can tunnel the whole pc and measure the traffic on normal periods of browsing @done(19-08-17 14:49)
 
 Another tasks:
   ☐ download mitmproxy
