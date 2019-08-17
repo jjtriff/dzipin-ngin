@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## Variables
 IFACE=enp0s20f0u1
